@@ -25,7 +25,7 @@ string encode(string message){
     string en_message;
     for(int i=0;i<message.length();i++){
         if( message[i]>=97&&message[i]<=122 ){
-            en_message.push_back(s_t[message[i]-'a']);
+            en_message.push_back(s_t[(int)(message[i]-'a')]);
         }
         if(message[i]==' ') en_message.push_back(' ');
     }
@@ -42,5 +42,5 @@ int main(){
     cout<<"input your information to be encoded:"<<endl;
     getline(cin,message,'\n');
     string en_message=encode(message);
-    cout<<"encoded information:  "<<message<<endl;
+    cout<<"encoded information:"<<endl<<en_message<<endl;
 }
