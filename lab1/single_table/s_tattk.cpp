@@ -5,6 +5,7 @@ using namespace std;
 
 double alpha_map[26]={0};
 int count_of_letters=0;
+unordered_map<char,char> map;
 
 void eval_letters_count(string s){
     for(int i=0;i<s.length();i++){
@@ -32,13 +33,16 @@ void cal_and_show(){
     }
 }
 
-string try_decode(string message,string map){
+string try_decode(string message,char original,char new_one){
+    map[original]=new_one;
     string true_message;
     for(int i=0;i<message.length();i++){
-        if(message[i]>=65&&message[i]<=92){
-            true_message.push_back(map[message[i]-'A']);
+        if(message[i]==original){
+            true_message.push_back(new_one);
         }
-        if(message[i]==' ') true_message.push_back(' ');
+        else{
+            true_message.push_back(message[i]);
+        }
     }
     return true_message;
 }
@@ -61,21 +65,19 @@ int main(){
     cal_and_show();
     cout<<endl;
     cout<<"Now,you can start decoding it. Please input your map:"<<endl;
+    char original,new_one;
     char opt=0;
-    string map;
-    string true_message;
+    string true_message=message;
     while(1){
-        cin>>map;
-        true_message=try_decode(message,map);
+        cin>>original>>new_one;
+        true_message=try_decode(true_message,original,new_one);
         cout<<true_message<<endl;
         cout<<"is it correct?(y/n):";
         cin>>opt;
         if(opt=='y'){
             print_map();
             cout<<"the true message is:"<<endl<<true_message<<endl;
-        }
-        else{
-            cout<<"new map:"<<endl;
+            break;
         }
     }
 }
